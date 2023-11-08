@@ -5,9 +5,9 @@
 |                          | Unit tests are created                                                                                                 | [ ]      |
 | MQTT Configuration       | **CarPark Class:**                                                                                                     |          |
 |                          | Subscribes to MQTT topics                                                                                              | [+]      |
-|                          | Publishes MQTT messages                                                                                                | [ ]      |
-|                          | Can parse messages from sensor                                                                          | [ ]      |
-|                          | Sends MQTT message that includes available bays, temperature                                                                         | [ ]      |
+|                          | Publishes MQTT messages                                                                                                | [+]      |
+|                          | Can parse messages from sensor                                                                          | [+]      |
+|                          | Sends MQTT message that includes available bays, temperature                                                                         | [+]      |
 |                          | **Sensor Class:**                                                                                                      |          |
 |                          | Publishes MQTT messages                                                                                                | [ ]      |
 |                          | Sends MQTT messages that include temperature, time, and entry/exit                                                                                        | [ ]      |
