@@ -59,7 +59,7 @@ class CarPark(mqtt_device.MqttDevice):
     def on_message(self, client, userdata, msg: MQTTMessage):
         payload = msg.payload.decode()
         # TODO: Extract temperature from payload
-        # self.temperature = ... # Extracted value
+        self.temperature = payload.split(", ")[1]
         if 'exit' in payload:
             self.on_car_exit()
         else:
