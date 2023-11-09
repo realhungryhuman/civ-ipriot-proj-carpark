@@ -4,6 +4,10 @@ import mqtt_device
 import paho.mqtt.client as paho
 from paho.mqtt.client import MQTTMessage
 
+import tomli
+
+CONFIG_FILE = "config.toml"
+
 
 class CarPark(mqtt_device.MqttDevice):
     """Creates a carpark object to store the state of cars in the lot"""
@@ -65,16 +69,20 @@ class CarPark(mqtt_device.MqttDevice):
 
 
 if __name__ == '__main__':
-    config = {'name': "raf-park",
-              'total-spaces': 130,
-              'total-cars': 0,
-              'location': 'L306',
-              'topic-root': "lot",
-              'broker': 'localhost',
-              'port': 1883,
-              'topic-qualifier': 'entry',
-              'is_stuff': False
-              }
+    with open(CONFIG_FILE, "r") as file:
+        config_string = file.read()
+    config = tomli.loads(config_string)
+    config = config["CarParks"][0]
+    # config = {'name': "raf-park",
+    #           'total-spaces': 130,
+    #           'total-cars': 0,
+    #           'location': 'L306',
+    #           'topic-root': "lot",
+    #           'broker': 'localhost',
+    #           'port': 1883,
+    #           'topic-qualifier': 'entry',
+    #           'is_stuff': False
+    #           }
     # TODO: Read config from file
     car_park = CarPark(config)
     print("Carpark initialized")

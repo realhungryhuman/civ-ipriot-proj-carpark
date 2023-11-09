@@ -3,8 +3,10 @@ name = "raf-park-international"
 total-spaces = 130
 total-cars = 0
 location = "moondalup"
+topic-root = "lot"
 broker = "localhost"
 port = 1883
+topic-qualifier = 'entry'
 
   [[CarParks.Sensor]]
   name = "sensor1"

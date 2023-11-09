@@ -1,5 +1,8 @@
 import mqtt_device
 import time
+import tomli
+
+CONFIG_FILE = "config.toml"
 class Display(mqtt_device.MqttDevice):
     """Displays the number of cars and the temperature"""
     def __init__(self, config):
@@ -15,19 +18,28 @@ class Display(mqtt_device.MqttDevice):
             time.sleep(1)
 
         print('*' * 20)
+
     def on_message(self, client, userdata, msg):
        data = msg.payload.decode()
        self.display(*data.split(','))
        # TODO: Parse the message and extract free spaces,\
        #  temperature, time
+
+
+
 if __name__ == '__main__':
-    config = {'name': 'display',
-     'location': 'L306',
-     'topic-root': "lot",
-     'broker': 'localhost',
-     'port': 1883,
-     'topic-qualifier': 'na'
-     }
     # TODO: Read config from file
+    with open(CONFIG_FILE, "r") as file:
+        config_string = file.read()
+    config = tomli.loads(config_string)
+    config = config["CarParks"][0]
+    config["name"] = config["Display"][0]["name"]
+    # config = {'name': 'display',
+    #  'location': 'L306',
+    #  'topic-root': "lot",
+    #  'broker': 'localhost',
+    #  'port': 1883,
+    #  'topic-qualifier': 'na'
+    #  }
     display = Display(config)
 

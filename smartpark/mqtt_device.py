@@ -1,4 +1,7 @@
 import paho.mqtt.client as paho
+import tomli
+
+
 class MqttDevice:
     def __init__(self, config):
         self.name = config['name']

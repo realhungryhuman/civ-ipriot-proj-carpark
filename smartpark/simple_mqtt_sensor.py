@@ -4,6 +4,10 @@ import random
 
 import mqtt_device
 
+import tomli
+
+CONFIG_FILE = "config.toml"
+
 
 class Sensor(mqtt_device.MqttDevice):
 
@@ -30,16 +34,20 @@ class Sensor(mqtt_device.MqttDevice):
 
 
 if __name__ == '__main__':
-    config1 = {'name': 'sensor',
-              'location': 'moondalup',
-              'topic-root': "lot",
-              'broker': 'localhost',
-              'port': 1883,
-              }
     # TODO: Read previous config from file instead of embedding
+    with open(CONFIG_FILE, "r") as file:
+        config_string = file.read()
+    config = tomli.loads(config_string)
+    config = config["CarParks"][0]
+    config["name"] = config["Sensor"][0]["name"]
+    # config1 = {'name': 'sensor',
+    #           'location': 'moondalup',
+    #           'topic-root': "lot",
+    #           'broker': 'localhost',
+    #           'port': 1883,
+    #           }
 
-    sensor1 = Sensor(config1)
-
+    sensor1 = Sensor(config)
 
     print("Sensor initialized")
     sensor1.start_sensing()
