@@ -1,13 +1,5 @@
-import sys
-
 import mqtt_device
 import time
-import tomli
-from config_parser import parse_config
-from sys import argv
-
-DEVICE_NUMBER = int(argv[1]) - 1
-
 
 class Display(mqtt_device.MqttDevice):
     """Displays the number of cars and the temperature"""
@@ -26,14 +18,20 @@ class Display(mqtt_device.MqttDevice):
         print('*' * 20)
 
     def on_message(self, client, userdata, msg):
-        data = msg.payload.decode()
-        self.display(*data.split(','))
-        # TODO: Parse the message and extract free spaces,
-        #  temperature, time
-
+       data = msg.payload.decode()
+       self.display(*data.split(','))
+       # TODO: Parse the message and extract free spaces,\
+       #  temperature, time
+       # Already done(?)
 
 if __name__ == '__main__':
+    config = {'name': 'display',
+     'location': 'L306',
+     'topic-root': "lot",
+     'broker': 'localhost',
+     'port': 1883,
+     'topic-qualifier': 'na'
+     }
     # TODO: Read config from file
-    config = parse_config()
-    display = Display(config['Displays'][DEVICE_NUMBER])
-    print(f"{display.name} initialized")
+    display = Display(config)
+

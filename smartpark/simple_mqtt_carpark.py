@@ -32,7 +32,7 @@ class CarPark(mqtt_device.MqttDevice):
 
     @property
     def temperature(self):
-        self._temperature
+        return self._temperature
     
     @temperature.setter
     def temperature(self, value):
@@ -44,13 +44,13 @@ class CarPark(mqtt_device.MqttDevice):
             (
                 f"TIME: {readable_time}, "
                 + f"SPACES: {self.available_spaces}, "
-                + f"TEMPC: {self.temperature}"
+                + f"TEMPC: {self._temperature}"
             )
         )
         message = (
             f"TIME: {readable_time}, "
             + f"SPACES: {self.available_spaces}, "
-            + f"TEMPC: {self.temperature}"
+            + f"TEMPC: {self._temperature}"
         )
         self.client.publish('display', message)
 
@@ -65,7 +65,7 @@ class CarPark(mqtt_device.MqttDevice):
     def on_message(self, client, userdata, msg: MQTTMessage):
         payload = msg.payload.decode()
         # TODO: Extract temperature from payload
-        self.temperature = payload.split(", ")[1]
+        self._temperature = payload.split(", ")[1]
         if 'exit' in payload:
             self.on_car_exit()
         else:
