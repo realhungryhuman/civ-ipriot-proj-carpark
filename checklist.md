@@ -9,8 +9,8 @@
 |                          | Can parse messages from sensor                                                                          | [+]      |
 |                          | Sends MQTT message that includes available bays, temperature                                                                         | [+]      |
 |                          | **Sensor Class:**                                                                                                      |          |
-|                          | Publishes MQTT messages                                                                                                | [ ]      |
-|                          | Sends MQTT messages that include temperature, time, and entry/exit                                                                                        | [ ]      |
+|                          | Publishes MQTT messages                                                                                                | [+]      |
+|                          | Sends MQTT messages that include temperature, time, and entry/exit                                                                                        | [+]      |
 |                          | **Display Class:**                                                                                                     |          |
 |                          | Subscribes to MQTT topics                                                                                              | [ ]      |
 |                          | Parses MQTT messages from car park                                                                                        | [ ]      |

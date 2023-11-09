@@ -1,5 +1,6 @@
 import mqtt_device
 import time
+
 class Display(mqtt_device.MqttDevice):
     """Displays the number of cars and the temperature"""
     def __init__(self, config):
@@ -15,11 +16,14 @@ class Display(mqtt_device.MqttDevice):
             time.sleep(1)
 
         print('*' * 20)
+
     def on_message(self, client, userdata, msg):
        data = msg.payload.decode()
        self.display(*data.split(','))
        # TODO: Parse the message and extract free spaces,\
        #  temperature, time
+       # Already done(?)
+
 if __name__ == '__main__':
     config = {'name': 'display',
      'location': 'L306',
