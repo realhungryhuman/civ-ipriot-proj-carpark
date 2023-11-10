@@ -69,10 +69,21 @@ class CarPark(mqtt_device.MqttDevice):
 
 
 if __name__ == '__main__':
+    car_parks = []
     with open(CONFIG_FILE, "r") as file:
         config_string = file.read()
-    config = tomli.loads(config_string)
-    config = config["CarParks"][0]
+    loaded_config = tomli.loads(config_string)
+    config = loaded_config['Carparks']
+    for car_park in config:
+        car_parks.append(CarPark(car_park))
+        print(f"Carpark {car_parks[car_park].name} initialized")
+
+
+    # with open(CONFIG_FILE, "r") as file:
+    #     config_string = file.read()
+    # config = tomli.loads(config_string)
+    # config = config["CarParks"][0]
+
     # config = {'name': "raf-park",
     #           'total-spaces': 130,
     #           'total-cars': 0,
@@ -84,6 +95,3 @@ if __name__ == '__main__':
     #           'is_stuff': False
     #           }
     # TODO: Read config from file
-    car_park = CarPark(config)
-    print("Carpark initialized")
-    print("Carpark initialized")

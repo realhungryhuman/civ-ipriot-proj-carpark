@@ -6,15 +6,28 @@ location = "moondalup"
 topic-root = "lot"
 broker = "localhost"
 port = 1883
+topic-qualifier = 'na'
+
+[[Sensors]]
+name = "sensor1"
+location = "moondalup"
+topic-root = "lot"
 topic-qualifier = 'entry'
+broker = "localhost"
+port = 1883
 
-  [[CarParks.Sensor]]
-  name = "sensor1"
-  type = "entry"
+[[Sensors]]
+name = "sensor2"
+location = "moondalup"
+topic-root = "lot"
+topic-qualifier = "exit"
+broker = "localhost"
+port = 1883
 
-  [[CarParks.Sensor]]
-  name = "sensor2"
-  type = "exit"
-
-  [[CarParks.Display]]
-  name = "display1"
+[[Displays]]
+name = "display1"
+location = "moondalup"
+topic-root = "lot"
+topic-qualifier = 'na'
+broker = "localhost"
+port = 1883

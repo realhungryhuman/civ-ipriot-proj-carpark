@@ -3,6 +3,7 @@ import time
 import tomli
 
 CONFIG_FILE = "config.toml"
+
 class Display(mqtt_device.MqttDevice):
     """Displays the number of cars and the temperature"""
     def __init__(self, config):
@@ -26,14 +27,21 @@ class Display(mqtt_device.MqttDevice):
        #  temperature, time
 
 
-
 if __name__ == '__main__':
     # TODO: Read config from file
+    displays = []
     with open(CONFIG_FILE, "r") as file:
         config_string = file.read()
-    config = tomli.loads(config_string)
-    config = config["CarParks"][0]
-    config["name"] = config["Display"][0]["name"]
+    loaded_config = tomli.loads(config_string)
+    config = loaded_config['Displays']
+    for display in config:
+        displays.append(Display(display))
+        print(f"{displays[display].name} initialized")
+    # with open(CONFIG_FILE, "r") as file:
+    #     config_string = file.read()
+    # config = tomli.loads(config_string)
+    # config = config["CarParks"][0]
+    # config["name"] = config["Display"][0]["name"]
     # config = {'name': 'display',
     #  'location': 'L306',
     #  'topic-root': "lot",
@@ -41,5 +49,4 @@ if __name__ == '__main__':
     #  'port': 1883,
     #  'topic-qualifier': 'na'
     #  }
-    display = Display(config)
 

@@ -35,11 +35,15 @@ class Sensor(mqtt_device.MqttDevice):
 
 if __name__ == '__main__':
     # TODO: Read previous config from file instead of embedding
+    sensors = []
     with open(CONFIG_FILE, "r") as file:
         config_string = file.read()
-    config = tomli.loads(config_string)
-    config = config["CarParks"][0]
-    config["name"] = config["Sensor"][0]["name"]
+    loaded_config = tomli.loads(config_string)
+    config = loaded_config['Sensors']
+    for sensor in config:
+        sensors.append(Sensor(sensor))
+        print(f"{sensors[sensor].name} initialized")
+    # config["name"] = config["Sensor"][0]["name"]
     # config1 = {'name': 'sensor',
     #           'location': 'moondalup',
     #           'topic-root': "lot",
@@ -47,10 +51,5 @@ if __name__ == '__main__':
     #           'port': 1883,
     #           }
 
-    sensor1 = Sensor(config)
-
-    print("Sensor initialized")
-    sensor1.start_sensing()
-
-    sensor1.start_sensing()
-
+    for sensor in sensors:
+        sensor.start_sensing()
