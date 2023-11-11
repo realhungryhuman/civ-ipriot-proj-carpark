@@ -1,18 +1,7 @@
 """"Demonstrates a simple implementation of an 'event' listener that triggers
 a publication via mqtt"""
 import random
-import sys
-
 import mqtt_device
-
-import tomli
-
-from config_parser import parse_config
-
-from sys import argv
-
-CONFIG_FILE = "config.toml"
-DEVICE_NUMBER = int(argv[1]) - 1
 
 
 class Sensor(mqtt_device.MqttDevice):
@@ -24,7 +13,7 @@ class Sensor(mqtt_device.MqttDevice):
 
     def on_detection(self, message):
         """Triggered when a detection occurs"""
-        self.client.publish('sensor', message)
+        self.client.publish(f'lot/moondalup/{self.name}/{self.topic_qualifier}', message)
 
     def start_sensing(self):
         """ A blocking event loop that waits for detection events, in this
@@ -40,9 +29,19 @@ class Sensor(mqtt_device.MqttDevice):
 
 
 if __name__ == '__main__':
+    config1 = {'name': 'sensor',
+              'location': 'moondalup',
+              'topic-root': "lot",
+              'broker': 'localhost',
+              'port': 1883,
+              }
     # TODO: Read previous config from file instead of embedding
-    config = parse_config()
-    sensor = Sensor(config['Sensor'][DEVICE_NUMBER])
-    print(f"{sensor.name} initialized")
 
-    sensor.start_sensing()
+    sensor1 = Sensor(config1)
+
+
+    print("Sensor initialized")
+    sensor1.start_sensing()
+
+    sensor1.start_sensing()
+
