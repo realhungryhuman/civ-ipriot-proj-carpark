@@ -4,6 +4,8 @@ import mqtt_device
 import paho.mqtt.client as paho
 from paho.mqtt.client import MQTTMessage
 
+MQTT_TOPICS = ['lot/moondalup/sensor1/entry', 'lot/moondalup/sensor2/exit']
+
 
 class CarPark(mqtt_device.MqttDevice):
     """Creates a carpark object to store the state of cars in the lot"""
@@ -13,7 +15,8 @@ class CarPark(mqtt_device.MqttDevice):
         self.total_spaces = config['total-spaces']
         self.total_cars = config['total-cars']
         self.client.on_message = self.on_message
-        self.client.subscribe('sensor')
+        for topic in MQTT_TOPICS:
+            self.client.subscribe(topic)
         self.client.loop_forever()
         self._temperature = None
 
@@ -44,7 +47,7 @@ class CarPark(mqtt_device.MqttDevice):
             + f"SPACES: {self.available_spaces}, "
             + f"TEMPC: {self._temperature}"
         )
-        self.client.publish('display', message)
+        self.client.publish('lot/moondalup/display1/na', message)
 
     def on_car_entry(self):
         self.total_cars += 1

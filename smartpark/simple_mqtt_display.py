@@ -6,7 +6,7 @@ class Display(mqtt_device.MqttDevice):
     def __init__(self, config):
         super().__init__(config)
         self.client.on_message = self.on_message()
-        self.client.subscribe('display')
+        self.client.subscribe('lot/moondalup/display1/na')
         self.client.loop_forever()
 
     def display(self, *args):
