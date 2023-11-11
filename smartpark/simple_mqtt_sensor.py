@@ -1,12 +1,15 @@
 """"Demonstrates a simple implementation of an 'event' listener that triggers
 a publication via mqtt"""
 import random
+import sys
 
 import mqtt_device
 
 import tomli
 
 from config_parser import parse_config
+
+from sys import argv
 
 CONFIG_FILE = "config.toml"
 
@@ -37,11 +40,9 @@ class Sensor(mqtt_device.MqttDevice):
 
 if __name__ == '__main__':
     # TODO: Read previous config from file instead of embedding
-    sensors = []
     config = parse_config()
-    for sensor in config:
-        sensors.append(Sensor(sensor))
-        print(f"{sensors[sensor].name} initialized")
+    sensor = Sensor(config['Sensors'][int(argv[1])-1])
+    print(f"{sensor.name} initialized")
     # config["name"] = config["Sensor"][0]["name"]
     # config1 = {'name': 'sensor',
     #           'location': 'moondalup',
@@ -50,5 +51,4 @@ if __name__ == '__main__':
     #           'port': 1883,
     #           }
 
-    for sensor in sensors:
-        sensor.start_sensing()
+    sensor.start_sensing()

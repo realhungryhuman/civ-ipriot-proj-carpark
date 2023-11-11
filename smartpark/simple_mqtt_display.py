@@ -1,7 +1,10 @@
+import sys
+
 import mqtt_device
 import time
 import tomli
 from config_parser import parse_config
+from sys import argv
 
 CONFIG_FILE = "config.toml"
 
@@ -31,11 +34,9 @@ class Display(mqtt_device.MqttDevice):
 
 if __name__ == '__main__':
     # TODO: Read config from file
-    displays = []
     config = parse_config()
-    for display in config:
-        displays.append(Display(display))
-        print(f"{displays[display].name} initialized")
+    display = Display(config['Displays'][int(argv[1])-1])
+    print(f"{display.name} initialized")
     # with open(CONFIG_FILE, "r") as file:
     #     config_string = file.read()
     # config = tomli.loads(config_string)
