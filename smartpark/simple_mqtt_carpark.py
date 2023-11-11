@@ -6,6 +6,8 @@ from paho.mqtt.client import MQTTMessage
 
 import tomli
 
+from config_parser import parse_config
+
 CONFIG_FILE = "config.toml"
 
 
@@ -70,10 +72,7 @@ class CarPark(mqtt_device.MqttDevice):
 
 if __name__ == '__main__':
     car_parks = []
-    with open(CONFIG_FILE, "r") as file:
-        config_string = file.read()
-    loaded_config = tomli.loads(config_string)
-    config = loaded_config['Carparks']
+    config = parse_config()
     for car_park in config:
         car_parks.append(CarPark(car_park))
         print(f"Carpark {car_parks[car_park].name} initialized")

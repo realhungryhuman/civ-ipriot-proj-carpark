@@ -6,6 +6,8 @@ import mqtt_device
 
 import tomli
 
+from config_parser import parse_config
+
 CONFIG_FILE = "config.toml"
 
 
@@ -36,10 +38,7 @@ class Sensor(mqtt_device.MqttDevice):
 if __name__ == '__main__':
     # TODO: Read previous config from file instead of embedding
     sensors = []
-    with open(CONFIG_FILE, "r") as file:
-        config_string = file.read()
-    loaded_config = tomli.loads(config_string)
-    config = loaded_config['Sensors']
+    config = parse_config()
     for sensor in config:
         sensors.append(Sensor(sensor))
         print(f"{sensors[sensor].name} initialized")
