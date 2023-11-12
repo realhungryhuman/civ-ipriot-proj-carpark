@@ -21,7 +21,7 @@ class CarPark(mqtt_device.MqttDevice):
         self.total_spaces = config['total-spaces']
         self.total_cars = config['total-cars']
         self.client.on_message = self.on_message
-        self.client.subscribe('sensor')
+        self.client.subscribe('s')
         self.client.loop_forever()
         self._temperature = None
 
@@ -83,7 +83,6 @@ if __name__ == '__main__':
               'topic-qualifier': 'entry',
               'is_stuff': False
               }
-
     # TODO: Read config from file
     car_park = CarPark(config)
     print("Carpark initialized")
