@@ -6,7 +6,7 @@ import tomli
 from config_parser import parse_config
 from sys import argv
 
-CONFIG_FILE = "config.toml"
+DEVICE_NUMBER = int(argv[1]) - 1
 
 
 class Display(mqtt_device.MqttDevice):
@@ -26,27 +26,14 @@ class Display(mqtt_device.MqttDevice):
         print('*' * 20)
 
     def on_message(self, client, userdata, msg):
-       data = msg.payload.decode()
-       self.display(*data.split(','))
-       # TODO: Parse the message and extract free spaces,\
-       #  temperature, time
+        data = msg.payload.decode()
+        self.display(*data.split(','))
+        # TODO: Parse the message and extract free spaces,
+        #  temperature, time
 
 
 if __name__ == '__main__':
     # TODO: Read config from file
     config = parse_config()
-    display = Display(config['Displays'][int(argv[1])-1])
+    display = Display(config['Displays'][DEVICE_NUMBER])
     print(f"{display.name} initialized")
-    # with open(CONFIG_FILE, "r") as file:
-    #     config_string = file.read()
-    # config = tomli.loads(config_string)
-    # config = config["CarParks"][0]
-    # config["name"] = config["Display"][0]["name"]
-    # config = {'name': 'display',
-    #  'location': 'L306',
-    #  'topic-root': "lot",
-    #  'broker': 'localhost',
-    #  'port': 1883,
-    #  'topic-qualifier': 'na'
-    #  }
-

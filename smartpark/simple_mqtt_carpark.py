@@ -10,6 +10,7 @@ from config_parser import parse_config
 from sys import argv
 
 CONFIG_FILE = "config.toml"
+DEVICE_NUMBER = int(argv[1]) - 1
 
 
 class CarPark(mqtt_device.MqttDevice):
@@ -72,24 +73,7 @@ class CarPark(mqtt_device.MqttDevice):
 
 
 if __name__ == '__main__':
-    config = parse_config()
-    car_park = CarPark(config['CarParks'][int(argv[1])-1])
-    print(f"Carpark {car_park.name} initialized")
-
-
-    # with open(CONFIG_FILE, "r") as file:
-    #     config_string = file.read()
-    # config = tomli.loads(config_string)
-    # config = config["CarParks"][0]
-
-    # config = {'name': "raf-park",
-    #           'total-spaces': 130,
-    #           'total-cars': 0,
-    #           'location': 'L306',
-    #           'topic-root': "lot",
-    #           'broker': 'localhost',
-    #           'port': 1883,
-    #           'topic-qualifier': 'entry',
-    #           'is_stuff': False
-    #           }
     # TODO: Read config from file
+    config = parse_config()
+    car_park = CarPark(config['CarParks'][DEVICE_NUMBER])
+    print(f"Carpark {car_park.name} initialized")

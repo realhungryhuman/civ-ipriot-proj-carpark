@@ -12,6 +12,7 @@ from config_parser import parse_config
 from sys import argv
 
 CONFIG_FILE = "config.toml"
+DEVICE_NUMBER = int(argv[1]) - 1
 
 
 class Sensor(mqtt_device.MqttDevice):
@@ -41,14 +42,7 @@ class Sensor(mqtt_device.MqttDevice):
 if __name__ == '__main__':
     # TODO: Read previous config from file instead of embedding
     config = parse_config()
-    sensor = Sensor(config['Sensors'][int(argv[1])-1])
+    sensor = Sensor(config['Sensor'][DEVICE_NUMBER])
     print(f"{sensor.name} initialized")
-    # config["name"] = config["Sensor"][0]["name"]
-    # config1 = {'name': 'sensor',
-    #           'location': 'moondalup',
-    #           'topic-root': "lot",
-    #           'broker': 'localhost',
-    #           'port': 1883,
-    #           }
 
     sensor.start_sensing()

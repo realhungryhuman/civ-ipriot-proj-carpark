@@ -30,7 +30,6 @@ Finally, you can use `yaml` if you prefer.
 
 
 """
-
 import tomli
 
 CONFIG_FILE = 'config.toml'
