@@ -42,7 +42,7 @@ class Sensor(mqtt_device.MqttDevice):
 if __name__ == '__main__':
     # TODO: Read previous config from file instead of embedding
     config = parse_config()
-    sensor = Sensor(config['Sensor'][DEVICE_NUMBER])
+    sensor = Sensor(config['Sensors'][DEVICE_NUMBER])
     print(f"{sensor.name} initialized")
 
     sensor.start_sensing()
