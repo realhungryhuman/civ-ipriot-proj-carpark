@@ -19,7 +19,7 @@ class CarPark(mqtt_device.MqttDevice):
     def __init__(self, config):
         super().__init__(config)
         self.total_spaces = config['total-spaces']
-        self.total_cars = config['total-cars']
+        self.total_cars = config['cars']
         self.client.on_message = self.on_message
         self.client.subscribe('s')
         self.client.loop_forever()
