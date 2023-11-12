@@ -1,5 +1,3 @@
-import sys
-
 import mqtt_device
 import time
 import tomli
@@ -14,7 +12,7 @@ class Display(mqtt_device.MqttDevice):
     def __init__(self, config):
         super().__init__(config)
         self.client.on_message = self.on_message()
-        self.client.subscribe('display')
+        self.client.subscribe('lot/moondalup/display1/na')
         self.client.loop_forever()
 
     def display(self, *args):
@@ -26,10 +24,11 @@ class Display(mqtt_device.MqttDevice):
         print('*' * 20)
 
     def on_message(self, client, userdata, msg):
-        data = msg.payload.decode()
-        self.display(*data.split(','))
-        # TODO: Parse the message and extract free spaces,
-        #  temperature, time
+       data = msg.payload.decode()
+       self.display(*data.split(','))
+       # TODO: Parse the message and extract free spaces,\
+       #  temperature, time
+       # Already done(?)
 
 
 if __name__ == '__main__':

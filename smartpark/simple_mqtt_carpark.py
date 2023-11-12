@@ -11,7 +11,7 @@ from sys import argv
 
 CONFIG_FILE = "config.toml"
 DEVICE_NUMBER = int(argv[1]) - 1
-
+MQTT_TOPICS = ['lot/moondalup/sensor1/entry', 'lot/moondalup/sensor2/exit']
 
 class CarPark(mqtt_device.MqttDevice):
     """Creates a carpark object to store the state of cars in the lot"""
@@ -73,7 +73,17 @@ class CarPark(mqtt_device.MqttDevice):
 
 
 if __name__ == '__main__':
+    config = {'name': "raf-park",
+              'total-spaces': 130,
+              'total-cars': 0,
+              'location': 'L306',
+              'topic-root': "lot",
+              'broker': 'localhost',
+              'port': 1883,
+              'topic-qualifier': 'entry',
+              'is_stuff': False
+              }
     # TODO: Read config from file
-    config = parse_config()
-    car_park = CarPark(config['CarParks'][DEVICE_NUMBER])
-    print(f"Carpark {car_park.name} initialized")
+    car_park = CarPark(config)
+    print("Carpark initialized")
+    print("Carpark initialized")

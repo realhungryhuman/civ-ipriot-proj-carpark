@@ -24,7 +24,7 @@ class Sensor(mqtt_device.MqttDevice):
 
     def on_detection(self, message):
         """Triggered when a detection occurs"""
-        self.client.publish('sensor', message)
+        self.client.publish(f'lot/moondalup/{self.name}/{self.topic_qualifier}', message)
 
     def start_sensing(self):
         """ A blocking event loop that waits for detection events, in this
