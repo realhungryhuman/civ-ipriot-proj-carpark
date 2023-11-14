@@ -5,11 +5,7 @@ import sys
 
 import mqtt_device
 from sense_emu import SenseHat
-
-import tomli
-
 from config_parser import parse_config
-
 from sys import argv
 
 CONFIG_FILE = "config.toml"
