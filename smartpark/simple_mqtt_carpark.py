@@ -3,9 +3,6 @@ from datetime import datetime
 import mqtt_device
 import paho.mqtt.client as paho
 from paho.mqtt.client import MQTTMessage
-
-import tomli
-
 from config_parser import parse_config
 from sys import argv
 

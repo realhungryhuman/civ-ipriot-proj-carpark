@@ -1,6 +1,5 @@
 import mqtt_device
 import time
-import tomli
 from config_parser import parse_config
 from sys import argv
 
