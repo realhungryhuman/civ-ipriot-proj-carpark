@@ -2,14 +2,18 @@
 a publication via mqtt"""
 import random
 import mqtt_device
+from sense_emu import SenseHat
 
 
 class Sensor(mqtt_device.MqttDevice):
+    def __init__(self, config):
+        super().__init__(config)
+        self.temperature_sensor = SenseHat()
 
     @property
     def temperature(self):
-        """Returns the current temperature"""
-        return random.randint(10, 35) 
+        self.temperature_sensor.clear()
+        return self.temperature_sensor.get_temperature()
 
     def on_detection(self, message):
         """Triggered when a detection occurs"""
