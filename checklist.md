@@ -12,8 +12,8 @@
 |                          | Publishes MQTT messages                                                                                                | [+]      |
 |                          | Sends MQTT messages that include temperature, time, and entry/exit                                                                                        | [+]      |
 |                          | **Display Class:**                                                                                                     |          |
-|                          | Subscribes to MQTT topics                                                                                              | [ ]      |
-|                          | Parses MQTT messages from car park                                                                                        | [ ]      |
+|                          | Subscribes to MQTT topics                                                                                              | [+]      |
+|                          | Parses MQTT messages from car park                                                                                        | [?]      |
 | Configuration File       | **CarPark Class:**                                                                                                     |          |
 | Management               | Reads initial configuration from a file                                                                                | [+]      |
 |                          | Writes available bays to a configuration class                                                                         | [ ]      |
