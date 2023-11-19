@@ -35,6 +35,28 @@ import tomli
 CONFIG_FILE = 'config.toml'
 
 
+class MqttDeviceConfig:
+    def __init__(self):
+        self.config = parse_config()
+        self.name = self.config['name']
+        self.location = self.config['location']
+        self.topic_root = self.config['topic-root']
+        self.topic_qualifier = self.config['topic-qualifier']
+        self.broker = self.config['broker']
+        self.port = self.config['port']
+
+    def write_config_to_toml(self):
+        config_file = open(CONFIG_FILE, 'w')
+
+        config_file.write(f'[[MqttDevices]]\n'
+                          f'name = "{self.name}"\n'
+                          f'location = "{self.location}"\n'
+                          f'topic-root = "{self.topic_root}"\n'
+                          f'topic-qualifier = "{self.topic_qualifier}"\n'
+                          f'broker = "{self.broker}"\n'
+                          f'port = "{self.port}"\n\n')
+
+
 def parse_config() -> dict:
     """Parse the config file and return the values as a dictionary"""
     # TODO: get the configuration from a parsed file

@@ -18,6 +18,7 @@ class CarPark(mqtt_device.MqttDevice):
         super().__init__(config)
         self.total_spaces = config['total-spaces']
         self.total_cars = config['total-cars']
+        self.free_spaces = self.available_spaces
         self.client.on_message = self.on_message
         for topic in MQTT_TOPICS:
             self.client.subscribe(topic)
@@ -53,6 +54,7 @@ class CarPark(mqtt_device.MqttDevice):
         )
         self.client.publish('lot/moondalup/display1/na', message)
 
+
     def on_car_entry(self):
         self.total_cars += 1
         self._publish_event()
@@ -69,6 +71,15 @@ class CarPark(mqtt_device.MqttDevice):
             self.on_car_exit()
         else:
             self.on_car_entry()
+
+        config_file = parse_config()
+        # Update Config with available spaces
+        try:
+            config_file['available-spaces'] = self.available_spaces
+        except IndexError:
+            config_file.get('available-spaces', self.available_spaces)
+
+        new_config_file = open(CONFIG_FILE)
 
 
 if __name__ == '__main__':
